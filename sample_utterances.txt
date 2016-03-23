@@ -1,0 +1,3 @@
+wa_query {what is the date two weeks from today|response}
+wa_query {convert eleven inches to centimeters|response}
+wa_query {what is harrison fords birthday|response}

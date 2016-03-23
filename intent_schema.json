@@ -1,0 +1,13 @@
+{
+    "intents": [
+        {
+            "intent": "wa_query",
+            "slots": [
+                {
+                    "name": "response",
+                    "type": "LITERAL"
+                }
+            ]
+        }
+    ]
+}
