@@ -11,7 +11,7 @@ An example Alexa Skill to query Wolfram Alpha, written in Python.
 ## Quick Start
 
 1. Create an [AWS Lambda](https://console.aws.amazon.com/console/home) function
-   using alexa-wolfram-alpha.py as the code
+   using `alexa-wolfram-alpha.py` as the code
    - You can follow the [official Amazon
      instructions](https://developer.amazon.com/public/solutions/alexa/alexa-skills-kit/docs/developing-an-alexa-skill-as-a-lambda-function)
      to give you a hand
@@ -21,6 +21,7 @@ An example Alexa Skill to query Wolfram Alpha, written in Python.
      insert your `applicationId` to only allow requests coming from your
      `applicationId`
    - You can use `test_event.json` as your test template
+   - Consider extending the timeout beyond the default of 3 seconds (I raised mine to 10, which is likely excessive, but eliminated some sporadic errors e.g. [#1](https://github.com/n8henrie/alexa-wolfram-alpha/issues/1))
 1. Create a new [Alexa
    Skill](https://developer.amazon.com/edw/home.html#/skill/create) using
    `intent_schema.json` and `sample_utterances.txt`
