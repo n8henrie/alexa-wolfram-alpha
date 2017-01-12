@@ -15,28 +15,19 @@ An example Alexa Skill to query Wolfram Alpha, written in Python.
    - You can follow the [official Amazon
      instructions](https://developer.amazon.com/public/solutions/alexa/alexa-skills-kit/docs/developing-an-alexa-skill-as-a-lambda-function)
      to give you a hand
-   - You **must** put your Wolfram Alpha AppID into the `ask_wolfram_alpha`
-     function, currently line 119
-   - You *should* uncomment the block in the `lambda_handler` function and
-     insert your `applicationId` to only allow requests coming from your
-     `applicationId`
+   - Put your Wolfram Alpha AppID into an environment variable called "WOLFRAM_ID" and also put your Alexa Skill Identifier in an environement variable called "SKILL_ID". For help view the [documentation](http://docs.aws.amazon.com/lambda/latest/dg/env_variables.html)
    - You can use `test_event.json` as your test template
    - Consider extending the timeout beyond the default of 3 seconds (I raised mine to 10, which is likely excessive, but eliminated some sporadic errors e.g. [#1](https://github.com/n8henrie/alexa-wolfram-alpha/issues/1))
 1. Create a new [Alexa
    Skill](https://developer.amazon.com/edw/home.html#/skill/create) using
    `intent_schema.json` and `sample_utterances.txt`
-1. **Don't publish** the skill (because it includes your personal Wolfram Alpha
-   API AppID), leave it in development mode
 1. Test that it's working from the web interface during the creation of the
    skill
 1. Test that it's working with your Echo
 
 ## Development
 
-Feel free to fork and hack on this, but keep in mind that the code in the repo
-shouldn't include your AppID. Unfortunately, it looks like there's no particularly simple way
-to set / get this kind of value from the AWS environment -- open an issue if
-I'm wrong about this.
+Feel free to fork and hack on this.
 
 The `setup.cfg` file is just in case you have a [homebrew](http://brew.sh/)
 installed python2 and want to include other 3rd party libraries in your code,
