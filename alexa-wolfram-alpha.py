@@ -8,6 +8,7 @@ http://amzn.to/1LGWsLG
 """
 
 from __future__ import print_function
+import os
 import xml.etree.ElementTree as etree
 try:
     from urllib.request import urlopen
@@ -30,9 +31,9 @@ def lambda_handler(event, context):
     prevent someone else from configuring a skill that sends requests to this
     function.
     """
-    # if (event['session']['application']['applicationId'] !=
-    #         "amzn1.echo-sdk-ams.app.[unique-value-here]"):
-    #     raise ValueError("Invalid Application ID")
+    if (event['session']['application']['applicationId'] !=
+            os.environ["SKILL_ID"]):
+        raise ValueError("Invalid Application ID")
 
     if event['session']['new']:
         on_session_started({'requestId': event['request']['requestId']},
@@ -116,7 +117,7 @@ def ask_wolfram_alpha(intent, session):
 
     api_root = "http://api.wolframalpha.com/v2/"
 
-    appid = ""
+    appid = os.environ["WOLFRAM_ID"]
 
     query = intent['slots']['response'].get('value')
     if query:
