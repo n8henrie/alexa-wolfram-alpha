@@ -8,6 +8,7 @@ http://amzn.to/1LGWsLG
 """
 
 from __future__ import print_function
+import os
 import xml.etree.ElementTree as etree
 try:
     from urllib.request import urlopen
@@ -16,6 +17,8 @@ except ImportError:
     # Python2
     from urllib2 import urlopen
     from urllib import urlencode
+
+__version__ = 'v0.1.2'
 
 
 def lambda_handler(event, context):
@@ -26,13 +29,13 @@ def lambda_handler(event, context):
           event['session']['application']['applicationId'])
 
     """
-    Uncomment this if statement and populate with your skill's application ID to
-    prevent someone else from configuring a skill that sends requests to this
-    function.
+    Uncomment this if statement and populate with your skill's application ID
+    to prevent someone else from configuring a skill that sends requests to
+    this function.
     """
-    # if (event['session']['application']['applicationId'] !=
-    #         "amzn1.echo-sdk-ams.app.[unique-value-here]"):
-    #     raise ValueError("Invalid Application ID")
+    if (event['session']['application']['applicationId'] !=
+            os.environ["SKILL_ID"]):
+        raise ValueError("Invalid Application ID")
 
     if event['session']['new']:
         on_session_started({'requestId': event['request']['requestId']},
@@ -49,8 +52,9 @@ def lambda_handler(event, context):
 def on_session_started(session_started_request, session):
     """ Called when the session starts """
 
-    print("on_session_started requestId=" + session_started_request['requestId']
-          + ", sessionId=" + session['sessionId'])
+    print("on_session_started requestId=" +
+          session_started_request['requestId'] +
+          ", sessionId=" + session['sessionId'])
 
 
 def on_launch(launch_request, session):
@@ -89,7 +93,7 @@ def on_session_ended(session_ended_request, session):
           ", sessionId=" + session['sessionId'])
     # add cleanup logic here
 
-# --------------- Functions that control the skill's behavior ------------------
+# --------------- Functions that control the skill's behavior -----------------
 
 
 def get_welcome_response():
@@ -100,8 +104,9 @@ def get_welcome_response():
     session_attributes = {}
     card_title = "Welcome"
     speech_output = "Ask a question to Wolfram Alpha."
-    # If the user either does not reply to the welcome message or says something
-    # that is not understood, they will be prompted again with this text.
+    # If the user either does not reply to the welcome message or says
+    # something that is not understood, they will be prompted again with this
+    # text.
     reprompt_text = ("I didn't catch that. Ask a question for Wolfram Alpha.")
     should_end_session = False
     return build_response(session_attributes, build_speechlet_response(
@@ -116,7 +121,7 @@ def ask_wolfram_alpha(intent, session):
 
     api_root = "http://api.wolframalpha.com/v2/"
 
-    appid = ""
+    appid = os.environ["WOLFRAM_ID"]
 
     query = intent['slots']['response'].get('value')
     if query:
@@ -145,7 +150,7 @@ def ask_wolfram_alpha(intent, session):
     return build_response(session_attributes, build_speechlet_response(
         intent['name'], speech_output, reprompt_text, should_end_session))
 
-# --------------- Helpers that build all of the responses ----------------------
+# --------------- Helpers that build all of the responses ---------------------
 
 
 def build_speechlet_response(title, output, reprompt_text, should_end_session):
