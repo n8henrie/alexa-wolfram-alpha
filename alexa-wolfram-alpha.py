@@ -1,4 +1,5 @@
-"""alexa-wolfram-alpha.py
+"""alexa-wolfram-alpha.py :: Alexa, Ask Wolfram Alpha.
+
 This sample demonstrates a simple skill built with the Amazon Alexa Skills Kit.
 The Intent Schema, Custom Slots, and Sample Utterances for this skill, as well
 as testing instructions are located at http://amzn.to/1LzFrj6
@@ -7,16 +8,10 @@ For additional samples, visit the Alexa Skills Kit Getting Started guide at
 http://amzn.to/1LGWsLG
 """
 
-from __future__ import print_function
 import os
 import xml.etree.ElementTree as etree
-try:
-    from urllib.request import urlopen
-    from urllib.parse import urlencode
-except ImportError:
-    # Python2
-    from urllib2 import urlopen
-    from urllib import urlencode
+from urllib.parse import urlencode
+from urllib.request import urlopen
 
 
 def lambda_handler(event, context):
@@ -139,7 +134,7 @@ def ask_wolfram_alpha(intent, session):
                           if pod.attrib.get('title') == "Result")
             should_end_session = True
         except StopIteration:
-            result = "No results for {}".format(query)
+            result = f"No results for {query}"
 
         speech_output = result
 
