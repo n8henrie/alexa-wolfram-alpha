@@ -1,6 +1,6 @@
 # alexa-wolfram-alpha
 
-An example Alexa Skill to query Wolfram Alpha, written in Python.
+An example Alexa Skill to query Wolfram Alpha, written in Python (3.6).
 
 ## Dependencies
 
@@ -30,11 +30,11 @@ An example Alexa Skill to query Wolfram Alpha, written in Python.
 Feel free to fork and hack on this.
 
 The `setup.cfg` file is just in case you have a [homebrew](http://brew.sh/)
-installed python2 and want to include other 3rd party libraries in your code,
+installed python and want to include other 3rd party libraries in your code,
 in which case you have to upload a zip of your code as the lambda function. To
 do so, from your root directory do something like:
 
-1. `pip2 install LIBRARY_NAME -t .`
+1. `pip install LIBRARY_NAME -t .`
 1. `zip -r $(date +%s)-alexa-wolfram-alpha.zip .`
 
 Also, take a look at [Amazon's official sample code for a lambda-based Alexa Skill
